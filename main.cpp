@@ -22,13 +22,13 @@ public:
         vid.attach(cube);
     }
     
-    void update(TimeDelta TimeStep)
+    void update(TimeDelta timeStep)
     {
-        unsigned y = 10;
-        unsigned x1 = 3;
-        unsigned x2 = 10;
-        vid.fb64.span(vec(x1,y),x2-x1, 1);
-        vid.fb64.fill(vec(x2,y),vec(x2,y),1);
+        xPos +=1;
+        yPos +=1;
+        //vid.fb64.span(vec(x1,y),4, 1);
+        vid.fb64.fill(vec(xPos,yPos),vec(width,width), 1);
+        hasRect = !hasRect;
         
         
         /*while (iter.next()) {
@@ -56,6 +56,10 @@ private:
     VideoBuffer vid;
     unsigned frame;
     float fpsTimespan;
+    bool hasRect = true;
+    int xPos = 0;
+    int yPos = 0;
+    int width = 10;
     
     
     
@@ -70,10 +74,7 @@ void main()
         instances[i].init(i);
     
     TimeStep ts;
-    
-    
     while (1) {
-        
         for(unsigned i =0; i<arraysize(instances);i++)
             instances[i].update(ts.delta());
         System::paint();
